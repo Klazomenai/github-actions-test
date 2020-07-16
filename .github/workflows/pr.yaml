@@ -13,4 +13,6 @@ jobs:
       name: git checkout
 
     - name: Sed branch out of ref
-      run: echo $GITHUB_HEAD_REF $GITHUB_RUN_NUMBER
+      run: echo $GITHUB_REF $FOO
+      env:
+        FOO: foo
