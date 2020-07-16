@@ -18,9 +18,10 @@ jobs:
     - name: 'Test Helm chart'
       uses: 'deliverybot/helm@v1'
       with:
+        helm: helm3
         release: $GITHUB_HEAD_REF
         namespace: $GITHUB_HEAD_REF
-        chart: $GITHUB_HEAD_REF
-        repository: https://charts-ose.clearmatics.com
+        chart: 'stable/$GITHUB_HEAD_REF'
+        repository: 'https://charts-ose.clearmatics.com'
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
