@@ -25,5 +25,6 @@ jobs:
         release: $GITHUB_HEAD_REF
         namespace: $GITHUB_HEAD_REF
         chart: 'stable/$GITHUB_HEAD_REF'
+        task: install
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
