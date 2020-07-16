@@ -22,6 +22,5 @@ jobs:
         release: $GITHUB_HEAD_REF
         namespace: $GITHUB_HEAD_REF
         chart: 'stable/$GITHUB_HEAD_REF'
-        repository: 'https://charts-ose.clearmatics.com'
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
