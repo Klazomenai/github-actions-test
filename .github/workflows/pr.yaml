@@ -11,6 +11,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       name: git checkout
+      with:
+        repository: clearmatics/charts-ose-helm3@master
 
     - name: Sed branch out of ref
       run: echo $GITHUB_HEAD_REF
