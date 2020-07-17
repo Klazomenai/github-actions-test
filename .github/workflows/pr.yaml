@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-      name: git checkout
+    - name: git checkout
+      uses: actions/checkout@v2
       with:
         repository: clearmatics/charts-ose-helm3
         ref: helm2to3start
@@ -27,7 +27,7 @@ jobs:
         echo 'Short SHA: '$SHORT_SHA
 
     - name: Setup gcloud environment
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@0.1.2
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@0.1.2
       with:
         version: '290.0.1'
         project_id: ${{ secrets.GCP_PROJECT_ID }}
@@ -36,7 +36,7 @@ jobs:
     - run: gcloud container clusters get-credentials tf-gke-helm --zone ${{ secrets.GCP_PROJECT_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
 
     - name: Install helm
-    - uses: azure/setup-helm@v1
+      uses: azure/setup-helm@v1
       with:
         version: '3.2.4'
       id: install
