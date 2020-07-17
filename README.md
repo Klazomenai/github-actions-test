@@ -1,2 +1,2 @@
 ## Test
-Define secrets for `gcloud` CI Service Account
+Define secrets for `gcloud` CI Service Account.
