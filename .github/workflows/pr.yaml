@@ -15,16 +15,18 @@ jobs:
         repository: clearmatics/charts-ose-helm3
         ref: helm2to3start
 
-    - name: Set path
+    - name: Set useful variables
       run: |
         echo '::set-env name=CHART_PATH::stable/'$GITHUB_HEAD_REF
         echo '::set-env name=SHORT_SHA::'$(echo $GITHUB_SHA|head -c 7)
+        echo '::set-env name=DEPLOYMENT_NAME::'$GITHUB_HEAD_REF-$SHORT_SHA
 
     - name: Get useful variables
       run: |
         echo 'Chart path: '$CHART_PATH
         echo 'Actor: '$GITHUB_ACTOR
         echo 'Short SHA: '$SHORT_SHA
+        echo 'Deployment name: '$DEPLOYMENT_NAME
 
     - name: Setup gcloud environment
       uses: GoogleCloudPlatform/github-actions/setup-gcloud@0.1.2
