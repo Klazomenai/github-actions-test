@@ -43,7 +43,7 @@ jobs:
         version: '3.2.4'
       id: install
 
-    - name: Deploy the chart
+    - name: Install the $CHART_PATH chart
       run: |
         helm install $GITHUB_HEAD_REF-$SHORT_SHA $CHART_PATH --namespace $GITHUB_ACTOR
         # Sadly --wait fails, so have to sleep :(
