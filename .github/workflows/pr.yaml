@@ -19,6 +19,8 @@ jobs:
       run: echo '::set-env name=CHART_PATH::stable/'$GITHUB_HEAD_REF
     - name: Get path
       run: echo 'The chart path is' $CHART_PATH
+    - name: Check path
+      run: ls $CHART_PATH
 
     - name: 'Test Helm chart'
       uses: 'deliverybot/helm@v1'
@@ -27,6 +29,5 @@ jobs:
         release: $GITHUB_HEAD_REF
         namespace: $GITHUB_HEAD_REF
         chart: $CHART_PATH
-        value-files: $CHART_PATH
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
