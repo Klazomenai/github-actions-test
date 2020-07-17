@@ -18,7 +18,7 @@ jobs:
     - name: Set path
       run: |
         echo '::set-env name=CHART_PATH::stable/'$GITHUB_HEAD_REF
-        echo '::set-env name=SHORT_SHA::$(echo $GITHUB_SHA|head -c 7)'
+        echo '::set-env name=SHORT_SHA::'$(echo $GITHUB_SHA|head -c 7)
 
     - name: Get useful variables
       run: |
