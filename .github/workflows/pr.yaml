@@ -19,8 +19,6 @@ jobs:
       run: echo '::set-env name=CHART_PATH::stable/'$GITHUB_HEAD_REF
     - name: Get path
       run: echo 'The chart path is' $CHART_PATH
-    - name: Check path
-      run: ls $CHART_PATH
 
     - uses: azure/setup-helm@v1
       with:
