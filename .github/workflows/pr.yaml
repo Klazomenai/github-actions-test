@@ -35,7 +35,7 @@ jobs:
       run: |
         mkdir ~/.kube/
         echo $KUBECONFIG_FILE | base64 -d > ~/.kube/config
-        helm upgrade $GITHUB_HEAD_REF $CHART_PATH --install --wait --namespace $SHORT_SHA
+        helm upgrade $GITHUB_HEAD_REF $CHART_PATH --install --wait
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
 
