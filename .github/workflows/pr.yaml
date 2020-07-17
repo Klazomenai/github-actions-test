@@ -27,6 +27,7 @@ jobs:
 
     - name: Deploy the chart
       run: |
+        echo $KUBECONFIG_FILE > ~/.kube/config
         helm upgrade $GITHUB_HEAD_REF $CHART_PATH --install --namespace=default
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
