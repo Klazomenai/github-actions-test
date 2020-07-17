@@ -16,9 +16,15 @@ jobs:
         ref: helm2to3start
 
     - name: Set path
-      run: echo '::set-env name=CHART_PATH::stable/'$GITHUB_HEAD_REF
-    - name: Get path
-      run: echo 'The chart path is' $CHART_PATH
+      run: |
+        echo '::set-env name=CHART_PATH::stable/'$GITHUB_HEAD_REF
+        echo '::set-env name=SHORT_SHA::$(echo $GITHUB_SHA|head -c 7)'
+
+    - name: Get useful variables
+      run: |
+        echo 'Chart path: '$CHART_PATH
+        echo 'Actor: '$GITHUB_ACTOR
+        echo 'Short SHA: '$SHORT_SHA
 
     - uses: azure/setup-helm@v1
       with:
@@ -29,6 +35,10 @@ jobs:
       run: |
         mkdir ~/.kube/
         echo $KUBECONFIG_FILE | base64 -d > ~/.kube/config
-        helm upgrade $GITHUB_HEAD_REF $CHART_PATH --install
+        helm upgrade $GITHUB_HEAD_REF $CHART_PATH --install --wait --namespace $SHORT_SHA
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
+
+    - name: Cleanup
+      run: |
+        helm delete $GITHUB_HEAD_REF
