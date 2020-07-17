@@ -26,6 +26,16 @@ jobs:
         echo 'Actor: '$GITHUB_ACTOR
         echo 'Short SHA: '$SHORT_SHA
 
+    - name: Setup gcloud environment
+    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@0.1.2
+      with:
+        version: '290.0.1'
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+    - run: gcloud container clusters get-credentials tf-gke-helm --zone ${{ secrets.GCP_PROJECT_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Install helm
     - uses: azure/setup-helm@v1
       with:
         version: '3.2.4'
@@ -33,11 +43,7 @@ jobs:
 
     - name: Deploy the chart
       run: |
-        mkdir ~/.kube/
-        echo $KUBECONFIG_FILE | base64 -d > ~/.kube/config
         helm upgrade $GITHUB_HEAD_REF $CHART_PATH --install --wait
-      env:
-        KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
 
     - name: Cleanup
       run: |
