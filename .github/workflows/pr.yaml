@@ -18,6 +18,11 @@ jobs:
     - name: Sed branch out of ref
       run: echo $GITHUB_HEAD_REF
 
+    - name: Set path
+      run: echo '::set-env name=CHART_NAME::stable/'$GITHUB_HEAD_REF
+    - name: Get path
+      run: echo 'The chart name is' $CHART_NAME
+
     - name: 'Test Helm chart'
       uses: 'deliverybot/helm@v1'
       with:
