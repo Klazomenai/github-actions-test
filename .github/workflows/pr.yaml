@@ -33,7 +33,9 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         service_account_key: ${{ secrets.GCP_SA_KEY }}
         export_default_credentials: true
-    - run: gcloud container clusters get-credentials tf-gke-helm --zone ${{ secrets.GCP_PROJECT_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Configure the kubeconfig
+      run: gcloud container clusters get-credentials tf-gke-helm --zone ${{ secrets.GCP_PROJECT_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
 
     - name: Install helm
       uses: azure/setup-helm@v1
