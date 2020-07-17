@@ -45,7 +45,7 @@ jobs:
 
     - name: Deploy the chart
       run: |
-        helm install $GITHUB_HEAD_REF-$SHORT_SHA $CHART_PATH
+        helm install $GITHUB_HEAD_REF-$SHORT_SHA $CHART_PATH --namespace $GITHUB_ACTOR
         # Sadly --wait fails, so have to sleep :(
         sleep 60
 
