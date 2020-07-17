@@ -44,7 +44,11 @@ jobs:
     - name: Deploy the chart
       run: |
         helm install $GITHUB_HEAD_REF-$SHORT_SHA $CHART_PATH
+        # Sadly --wait fails, so have to sleep :(
+        sleep 60
+
+    - name: Run the tests
+      run: helm test $GITHUB_HEAD_REF-$SHORT_SHA
 
     - name: Cleanup
-      run: |
-        helm delete $GITHUB_HEAD_REF
+      run: helm delete $GITHUB_HEAD_REF-$SHORT_SHA
