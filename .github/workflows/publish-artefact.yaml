@@ -1,0 +1,13 @@
+name: "Integration Tests and Publish on Tag"
+
+on:
+  push:
+    tags:
+    - '*'
+
+jobs:
+  integration_tests_publish_on_tag:
+    runs-on: ubuntu-latest
+
+    - name: Echo
+      run: echo 'Foo'
