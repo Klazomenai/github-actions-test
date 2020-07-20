@@ -9,5 +9,6 @@ jobs:
   integration_tests_publish_on_tag:
     runs-on: ubuntu-latest
 
+    steps:
     - name: Echo
       run: echo 'Foo'
