@@ -13,8 +13,8 @@ jobs:
     steps:
     - name: Echo
       run: |
-        echo '::set-env name=TAG::'${GITHUB_REF##*/}
-        echo '::set-env name=CHART_NAME::'$(echo $TAG | awk -F "-" '{print $1}')
+        echo "::set-env name=TAG::${GITHUB_REF##*/}"
+        echo "::set-env name=CHART_NAME::$(echo $TAG | awk -F '-' '{print $1}')"
         echo 'CHART_NAME: '$CHART_NAME
         echo 'GITHUB_REF short '${GITHUB_REF##*/}
         echo 'GITHUB_HEAD_REF '${GITHUB_HEAD_REF}
