@@ -7,8 +7,11 @@ on:
 jobs:
   integration_tests:
     if: |
-      ${{ github.head_ref == 'foo' ||
-      github.head_ref == 'bar' }}
+      ${{
+      github.head_ref == 'foo' ||
+      github.head_ref == 'bar' ||
+      github.head_ref == 'biscuit'
+      }}
 
     runs-on: ubuntu-latest
 
