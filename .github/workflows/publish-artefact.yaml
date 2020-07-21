@@ -11,17 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Set tag variable
+    - name: Set CHART_NAME variable
       run: |
-        echo '::set-env name=TAG::'${GITHUB_REF##*/}
-    - name: Set chart name variable
-      run: |
-        echo '::set-env name=CHART_NAME::'$(echo $TAG | awk -F '-' '{print $1}')
-        echo '::set-env name=CHART_NAME_TWO::'$(echo ${GITHUB_REF##*/} | awk -F '-' '{print $1}')
-    - name: Get useful variables
+        echo '::set-env name=CHART_NAME::'$(echo ${GITHUB_REF##*/} | awk -F '-' '{print $1}')
+    - name: Get CHART_NAME variables
       run: |
         echo 'CHART_NAME: '$CHART_NAME
-        echo 'CHART_NAME_TWO: '$CHART_NAME_TWO
-        echo 'GITHU_REF:' $GITHUB_REF
-        echo 'GITHUB_REF short '${GITHUB_REF##*/}
-        echo 'TAG: '$TAG
