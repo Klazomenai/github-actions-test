@@ -27,6 +27,7 @@ jobs:
         echo 'Actor: '$GITHUB_ACTOR
         echo 'Actor Lowercase: '$ACTOR_LOWERCASE
         echo 'Short SHA: '$SHORT_SHA
+        echo 'GITHUB_REF short: '${GITHUB_REF##*/}
 
     - name: Setup gcloud environment
       uses: GoogleCloudPlatform/github-actions/setup-gcloud@0.1.2
