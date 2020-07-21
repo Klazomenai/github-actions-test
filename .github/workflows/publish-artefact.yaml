@@ -13,7 +13,7 @@ jobs:
     steps:
     - name: Echo
       run: |
-        echo '::set-env name=TAG::'${GITHUB_REF##*/}
+        echo '::set-env name=TAG::'$GITHUB_REF
         echo '::set-env name=CHART_NAME::'$(echo sue-v0.0.1 | awk -F '-' '{print $1}')
         echo "::set-env name=MY_ACTION_SCRIPT::.github/step_param_from_env.sh"
         echo "MY_ACTION_SCRIPT: ${{env.MY_ACTION_SCRIPT}}"
@@ -22,5 +22,6 @@ jobs:
         echo 'MY_ACTION_SCRIPT: '${MY_ACTION_SCRIPT}
         echo 'MY_ACTION_SCRIPT: '$MY_ACTION_SCRIPT
         echo 'CHART_NAME: '$CHART_NAME
+        echo 'GITHU_REF:' $GITHUB_REF
         echo 'GITHUB_REF short '${GITHUB_REF##*/}
         echo 'TAG: '$TAG
