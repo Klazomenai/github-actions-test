@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: clearmatics/charts-ose-helm3
-        ref: helm2to3start
+        ref: autonity
 
     - name: Set useful variables
       run: |
