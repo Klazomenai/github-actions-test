@@ -20,4 +20,8 @@ jobs:
       if: github.ref ==  'foo' || github.ref == 'bar' || github.ref == 'biscuit'
 
     - name: Sed branch out of ref
-      run: echo $GITHUB_HEAD_REF $GITHUB_RUN_NUMBER echo $GITHUB_REF
+      run: |
+        echo $GITHUB_HEAD_REF
+        echo $GITHUB_RUN_NUMBER
+        echo $GITHUB_REF
+        echo github.ref
