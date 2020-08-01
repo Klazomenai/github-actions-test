@@ -11,6 +11,8 @@ on:
 jobs:
   integration_tests:
 
+    if: github.ref ==  'foo' || github.ref == 'bar' || github.ref == 'biscuit'
+
     runs-on: ubuntu-latest
 
     steps:
@@ -18,5 +20,4 @@ jobs:
       name: git checkout
 
     - name: Sed branch out of ref
-      if: github.ref ==  'foo' || github.ref == 'bar' || github.ref == 'biscuit'
       run: echo $GITHUB_HEAD_REF $GITHUB_RUN_NUMBER
