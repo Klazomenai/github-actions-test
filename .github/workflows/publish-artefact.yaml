@@ -14,6 +14,15 @@ jobs:
     - name: Set CHART_NAME variable
       run: |
         echo '::set-env name=CHART_NAME::'$(echo ${GITHUB_REF##*/} | awk -F '-' '{print $1}')
+        echo '::set-env name=ACTOR_LOWERCASE::'$(echo $GITHUB_ACTOR | tr '[:upper:]' '[:lower:]')
+        echo '::set-env name=SHORT_SHA::'$(echo $GITHUB_SHA|head -c 7)
+
     - name: Get CHART_NAME variables
       run: |
-        echo 'CHART_NAME: '$CHART_NAME
+        echo 'Chart name: '$CHART_NAME
+        echo 'Chart path: '$CHART_PATH
+        echo 'Actor: '$GITHUB_ACTOR
+        echo 'Actor Lowercase: '$ACTOR_LOWERCASE
+        echo 'Short SHA: '$SHORT_SHA
+        echo 'GitHub Run ID: '$GITHUB_RUN_ID
+        echo 'GitHub Event Name: '$GITHUB_EVENT_NAME
