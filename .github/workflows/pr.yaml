@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       name: git checkout
-      if: github.ref ==  'foo' || github.ref == 'bar' || github.ref == 'biscuit'
+      if: github.ref ==  'foo' || github.ref == 'bar' || github.ref == 'quercus-robur'
 
     - name: Sed branch out of ref
       run: |
