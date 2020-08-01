@@ -27,3 +27,6 @@ jobs:
         echo 'Short SHA: '$SHORT_SHA
         echo 'GitHub Run ID: '$GITHUB_RUN_ID
         echo 'GitHub Event Name: '$GITHUB_EVENT_NAME
+        echo 'GitHub Ref: '$GITHUB_REF
+        echo 'GitHub Head Ref: '$GITHUB_HEAD_REF
+        echo 'GitHub Base Ref: '$GITHUB_BASE_REF
