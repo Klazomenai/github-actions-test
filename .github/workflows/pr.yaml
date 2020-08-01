@@ -14,11 +14,9 @@ jobs:
 
     runs-on: ubuntu-latest
     if: |
-      ${{
       github.head_ref ==  'foo' ||
       github.head_ref == 'bar' ||
-      github.head_ref == 'biacuit'
-      }}
+      github.head_ref == 'quercus-robur'
 
     steps:
     - uses: actions/checkout@v2
