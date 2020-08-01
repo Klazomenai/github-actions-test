@@ -13,11 +13,11 @@ jobs:
 
 
     runs-on: ubuntu-latest
+    if: github.head_ref ==  'foo' || github.head_ref == 'bar' || github.head_ref == 'biacuit'
 
     steps:
     - uses: actions/checkout@v2
       name: git checkout
-      if: github.head_ref ==  'foo' || github.head_ref == 'bar' || github.head_ref == 'biacuit'
 
     - name: Sed branch out of ref
       run: |
