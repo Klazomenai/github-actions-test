@@ -13,7 +13,12 @@ jobs:
 
 
     runs-on: ubuntu-latest
-    if: github.head_ref ==  'foo' || github.head_ref == 'bar' || github.head_ref == 'biacuit'
+    if: |
+      ${{
+      github.head_ref ==  'foo' ||
+      github.head_ref == 'bar' ||
+      github.head_ref == 'biacuit'
+      }}
 
     steps:
     - uses: actions/checkout@v2
