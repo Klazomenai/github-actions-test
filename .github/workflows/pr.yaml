@@ -23,7 +23,7 @@ jobs:
 
     - name: Set useful variables
       run: |
-        echo "{CHART_PATH}={$GITHUB_HEAD_REF}" >> $GITHUB_ENV
+        echo "{CHART_PATH}={stable/$GITHUB_HEAD_REF}" >> $GITHUB_ENV
 
     - name: Get useful variables
       run: |
