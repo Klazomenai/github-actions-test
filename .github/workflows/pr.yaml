@@ -11,7 +11,6 @@ on:
 jobs:
   integration_tests:
 
-
     runs-on: ubuntu-latest
     if: |
       github.head_ref ==  'foo' ||
@@ -21,6 +20,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       name: git checkout
+
+    - name: Set useful variables
+      run: |
+        echo "{CHART_PATH}={stable/$GITHUB_HEAD_REF}" >> $GITHUB_ENV
+        echo "{SHORT_SHA}={$(echo $GITHUB_SHA|head -c 7)}" >> $GITHUB_REF
+
+    - name: Get useful variables
+      run: |
+        echo 'Chart path: '$CHART_PATH
 
     - name: Sed branch out of ref
       run: |
