@@ -25,12 +25,16 @@ jobs:
       run: |
         echo "{CHART_PATH}={stable/$GITHUB_HEAD_REF}" >> $GITHUB_ENV
         echo "{ACTOR_LOWERCASE}={$(echo $GITHUB_ACTOR | tr '[:upper:]' '[:lower:]')}" >> $GITHUB_ENV
+        echo "{SHORT_SHA}={$(echo $GITHUB_SHA|head -c 7)}" >> $GITHUB_REF
+
 
     - name: Get useful variables
       run: |
         echo 'Chart path: '$CHART_PATH
         echo 'Actor: '$GITHUB_ACTOR
         echo 'Actor Lowercase: '$ACTOR_LOWERCASE
+        echo 'Short SHA: '$SHORT_SHA
+        echo 'GitHub Run ID: '$GITHUB_RUN_ID
 
     - name: Sed branch out of ref
       run: |
