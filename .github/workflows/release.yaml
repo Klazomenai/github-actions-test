@@ -1,0 +1,26 @@
+name: release-test
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  release-test:
+    name: "Test release vars"
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+
+      - name: "Get vars from git"
+        id: git_vars
+        run: |
+          echo ::set-output name=TAG::${GITHUB_REF/refs\/tags\//}
+          echo ::set-output name=COMMIT_HASH::$(git rev-parse --short HEAD)
+
+      - name: "Echo vars from git"
+        run: |
+          echo ${{ steps.git_vars.outputs.TAG }}
+          echo ${{ steps.git_vars.outputs.COMMIT_HASH }}
