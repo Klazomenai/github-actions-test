@@ -20,7 +20,17 @@ jobs:
           echo ::set-output name=TAG::${GITHUB_REF/refs\/tags\//}
           echo ::set-output name=COMMIT_HASH::$(git rev-parse --short HEAD)
 
+      - name: Configure Docker
+        run: echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+
       - name: "Echo vars from git"
         run: |
           echo ${{ steps.git_vars.outputs.TAG }}
           echo ${{ steps.git_vars.outputs.COMMIT_HASH }}
+
+      - name: Build Tag and Push
+        run: |
+          docker build . --tag ghcr.io/klazomenai/$GITHUB_REPOSITORY:latest
+          docker tag ghcr.io/klazomenai/$GITHUB_REPOSITORY:latest ghcr.io/klazomenai/$GITHUB_REPOSITORY:${{ steps.git_vars.outputs.TAG }}
+          docker push ghcr.io/klazomenai/$GITHUB_REPOSITORY:latest
+          docker push ghcr.io/klazomenai/$GITHUB_REPOSITORY:${{ steps.git_vars.outputs.TAG }}
