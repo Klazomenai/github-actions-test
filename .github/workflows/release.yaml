@@ -34,4 +34,4 @@ jobs:
           docker build . --tag ghcr.io/${{ steps.git_vars.outputs.REPOSITORY_LOWERCASE }}:latest
           docker tag ghcr.io/${{ steps.git_vars.outputs.REPOSITORY_LOWERCASE }}:latest ghcr.io/${{ steps.git_vars.outputs.REPOSITORY_LOWERCASE }}:${{ steps.git_vars.outputs.TAG }}
           docker push ghcr.io/${{ steps.git_vars.outputs.REPOSITORY_LOWERCASE }}:latest
-          docker push ghcr.io/${{ steps.git_vars.outputs.REPOSITORY_LOWERCASE}}}:${{ steps.git_vars.outputs.TAG }}
+          docker push ghcr.io/${{ steps.git_vars.outputs.REPOSITORY_LOWERCASE }}:${{ steps.git_vars.outputs.TAG }}
