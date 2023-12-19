@@ -25,6 +25,7 @@ jobs:
 
       - name: Extract Repository Name
         run: |
+          echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY}"
           echo "REPO_NAME=${GITHUB_REPOSITORY##*/}" >> $GITHUB_ENV
           echo "${{ env.GH_USER }}"
 
