@@ -56,9 +56,9 @@ jobs:
 
       - name: Set Environment Variables
         run: |
-          if [ "${{ GITHUB_REF }}" == "refs/heads/develop" ]; then
+          if [ "${GITHUB_REF}" == "refs/heads/develop" ]; then
             echo "foo"
-          elif [ "${{ GITHUB_REF }}" == "refs/heads/main" ]; then
+          elif [ "${GITHUB_REF}" == "refs/heads/main" ]; then
             echo "bar"
           fi
 
