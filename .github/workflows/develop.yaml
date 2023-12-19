@@ -50,3 +50,7 @@ jobs:
           push: true
           tags: "${{ steps.meta.outputs.tags }}-${{ env.SHORT_SHA }}"
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Deploy the docker image
+        run: |
+          echo "${{ env.REGISTRY }}/${{ env.REPO_NAME }}-${{ env.SHORT_SHA }}"
