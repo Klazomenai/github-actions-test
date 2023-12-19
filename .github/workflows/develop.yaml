@@ -23,6 +23,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Extract Repository Name
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY##*/}"
+          echo "Repository Name: $REPO_NAME"
+
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
@@ -34,7 +39,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: "${{ github.repository }}/backend:develop"
+          images: "${{ env.REPO_NAME }}/backend:develop"
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
