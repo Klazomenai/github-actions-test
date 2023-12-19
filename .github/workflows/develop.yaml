@@ -48,5 +48,5 @@ jobs:
         with:
           context: "{{defaultContext}}:/"
           push: true
-          tags: "${{ steps.meta.outputs.tags }}-metafoo"
+          tags: "${{ steps.meta.outputs.tags }}-${{ env.SHORT_SHA }}"
           labels: ${{ steps.meta.outputs.labels }}
