@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - main
 
 env:
   GH_USER: Klazomenai
@@ -53,5 +54,4 @@ jobs:
 
       - name: Deploy the docker image
         run: |
-          echo "${{ env.REGISTRY }}/${{ env.REPO_NAME }}-${{ env.SHORT_SHA }}"
           echo "Tags with short sha: ${{ steps.meta.outputs.tags }}-${{ env.SHORT_SHA }}"
