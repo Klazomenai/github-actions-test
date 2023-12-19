@@ -41,7 +41,9 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: "${{ env.REGISTRY }}/${{ env.REPO_NAME }}-${{ env.SHORT_SHA }}"
+          images: "${{ env.REGISTRY }}/${{ env.REPO_NAME }}"
+        tags: |
+          type=sha
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
