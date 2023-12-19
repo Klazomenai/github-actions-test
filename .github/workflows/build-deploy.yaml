@@ -23,7 +23,7 @@ jobs:
       packages: write
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Extract Repository Name
@@ -33,7 +33,7 @@ jobs:
           echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
           echo "${{ env.GH_USER }}"
 
-      - name: Log in to the Container registry
+      - name: Log-in to the Container Registry
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
@@ -46,7 +46,7 @@ jobs:
         with:
           images: "${{ env.REGISTRY }}/${{ env.REPO_NAME }}"
 
-      - name: Build and push Docker image
+      - name: Build and push Docker Image
         uses: docker/build-push-action@v5
         with:
           context: "{{defaultContext}}:/"
@@ -54,6 +54,14 @@ jobs:
           tags: "${{ steps.meta.outputs.tags }}-${{ env.SHORT_SHA }}"
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Deploy the docker image
+      - name: Set Environment Variables
+        run: |
+          if [ "$GITHUB_REF" == "refs/heads/develop" ]; then
+            echo "foo"
+          elif [ "$GITHUB_REF" == "refs/heads/main" ]; then
+            echo "bar"
+          fi
+
+      - name: Deploy the Docker Image
         run: |
           echo "Tags with short sha: ${{ steps.meta.outputs.tags }}-${{ env.SHORT_SHA }}"
