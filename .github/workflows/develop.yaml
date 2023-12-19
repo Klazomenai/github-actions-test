@@ -39,7 +39,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: "${{ env.REPO_NAME }}"
+          images: "${{ env.REGISTRY }}/${{ GITHUB_REPOSITORY }}"
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
