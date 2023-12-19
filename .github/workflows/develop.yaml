@@ -6,7 +6,7 @@ on:
       - develop
 
 env:
-  GH_USER: klazomenai
+  GH_USER: Klazomenai
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
@@ -26,6 +26,7 @@ jobs:
       - name: Extract Repository Name
         run: |
           echo "REPO_NAME=${GITHUB_REPOSITORY##*/}" >> $GITHUB_ENV
+          echo "${{ env.GH_USER }}"
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3
