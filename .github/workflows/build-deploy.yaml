@@ -5,6 +5,8 @@ on:
     branches:
       - develop
       - main
+    paths-ignore:
+      - '.github/**'
 
 env:
   GH_USER: Klazomenai
