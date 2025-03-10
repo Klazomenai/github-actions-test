@@ -29,12 +29,31 @@ jobs:
       - name: Sleep 60 Seconds to Trigger Timeout
         run: sleep 60
 
-      - name: Check for Timeout in Logs
-        if: cancelled()
+      - name: Detect Timeout via API
+        if: failure()  # Run only if the job failed
         run: |
-          if grep "The job was stopped because it reached the maximum execution time." $GITHUB_WORKFLOW_LOG; then
-            echo "Timeout detected!"
-            exit 124
+          JOB_INFO=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          "https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}")
+
+          JOB_CONCLUSION=$(echo "$JOB_INFO" | jq -r '.conclusion')
+          JOB_STATUS=$(echo "$JOB_INFO" | jq -r '.status')
+
+          echo "Job Conclusion: $JOB_CONCLUSION"
+          echo "Job Status: $JOB_STATUS"
+
+          if [[ "$JOB_CONCLUSION" == "cancelled" && "$JOB_STATUS" == "completed" ]]; then
+            echo "Possible timeout detected. Verifying logs..."
+            LOG_URL=$(echo "$JOB_INFO" | jq -r '.logs_url')
+
+            LOGS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$LOG_URL")
+
+            if echo "$LOGS" | grep -q "The job was stopped because it reached the maximum execution time."; then
+              echo "Confirmed: Job failed due to timeout!"
+              exit 1
+            else
+              echo "Job was cancelled, but not due to a timeout."
+              exit 0
+            fi
           fi
 
       - name: Capture End Time
