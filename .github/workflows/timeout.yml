@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Capture Start Time
-        run: echo "$(date +%s)" > start_time.txt
+        run: echo "$(date +%s)" > build-job-start-time.txt
 
       - name: Upload Start Time
         uses: actions/upload-artifact@v4
@@ -31,7 +31,7 @@ jobs:
 
       - name: Capture End Time
         if: always()
-        run: echo "END_TIME=$(date +%s)" >> $GITHUB_ENV
+        run: echo "$(date +%s)" > build-job-end-time.txt
 
   report:
     name: Report Job Status
@@ -52,9 +52,10 @@ jobs:
 
       - name: Calculate Total Execution Time
         run: |
-          START_TIME=$(cat start_time.txt)
-          TOTAL_RUNTIME=$(( $(date +%s) - START_TIME ))
-          echo "TOTAL_RUNTIME=$TOTAL_RUNTIME" >> $GITHUB_ENV
-          echo "START_TIME: " $START_TIME
-          echo "END_TIME: " $END_TIME
-          echo "TOTAL_RUNTIME: " $TOTAL_RUNTIME
+          BUILD_JOB_START_TIME=$(cat build-job-start-time.txt)
+          BUILD_JOB_END_TIME=$(cat build-job-end-time.txt)
+          BUILD_JOB_RUNTIME=$(( BUILD_JOB_END_TIME - BUILD_JOB_START_TIME ))
+          echo "BUILD_JOB_RUNTIME=$TOTAL_RUNTIME" >> $GITHUB_ENV
+          echo "BUILD_JOB_START_TIME: " $BUILD_JOB_START_TIME
+          echo "BUILD_JOB_END_TIME: " $BUILD_JOB_END_TIME
+          echo "BUILD_JOB_RUNTIME: " $BUILD_JOB_RUNTIME
