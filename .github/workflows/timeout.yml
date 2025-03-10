@@ -30,6 +30,7 @@ jobs:
         run: sleep 60
 
       - name: Capture End Time
+        if: always()
         run: echo "END_TIME=$(date +%s)" >> $GITHUB_ENV
 
   report:
