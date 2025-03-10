@@ -55,4 +55,5 @@ jobs:
           START_TIME=$(cat start_time.txt)
           TOTAL_RUNTIME=$(( $(date +%s) - START_TIME ))
           echo "TOTAL_RUNTIME=$TOTAL_RUNTIME" >> $GITHUB_ENV
-
+          echo "START_TIME: " $START_TIME
+          echo "TOTAL_RUNTIME: " $TOTAL_RUNTIME
