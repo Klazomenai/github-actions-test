@@ -47,7 +47,7 @@ jobs:
 
             LOGS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$LOG_URL")
 
-            if echo "$LOGS" | grep -q "The job was stopped because it reached the maximum execution time."; then
+            if echo "$LOGS" | grep --quiet "maximum execution time"; then
               echo "Confirmed: Job failed due to timeout!"
               exit 1
             else
