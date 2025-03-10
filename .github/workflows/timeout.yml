@@ -26,13 +26,6 @@ jobs:
           name: start-time
           path: start_time.txt
 
-      - name: Upload Site Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: site-${{ github.sha }}
-          path: dashboards/_site
-          if-no-files-found: error
-
       - name: Sleep 60 Seconds to Trigger Timeout
         run: sleep 60
 
