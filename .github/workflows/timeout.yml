@@ -1,0 +1,64 @@
+name: Log timeout test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  build:
+    name: Build Dashboards
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Capture Start Time
+        run: echo "$(date +%s)" > start_time.txt
+
+      - name: Upload Start Time
+        uses: actions/upload-artifact@v4
+        with:
+          name: start-time
+          path: start_time.txt
+
+      - name: Upload Site Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-${{ github.sha }}
+          path: dashboards/_site
+          if-no-files-found: error
+
+      - name: Sleep 60 Seconds to Trigger Timeout
+        run: sleep 60
+
+      - name: Capture End Time
+        run: echo "END_TIME=$(date +%s)" >> $GITHUB_ENV
+
+  report:
+    name: Report Job Status
+    runs-on: ubuntu-latest
+    if: always()
+    needs:
+      - build
+
+    env:
+      REPORT_ON_SUCCESS: "false"
+
+    steps:
+      - name: Download Start Time
+        uses: actions/download-artifact@v4
+        with:
+          name: start-time
+          path: .
+
+      - name: Calculate Total Execution Time
+        run: |
+          START_TIME=$(cat start_time.txt)
+          TOTAL_RUNTIME=$(( $(date +%s) - START_TIME ))
+          echo "TOTAL_RUNTIME=$TOTAL_RUNTIME" >> $GITHUB_ENV
+
