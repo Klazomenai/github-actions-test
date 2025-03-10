@@ -17,21 +17,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Capture Start Time
+      - name: Capture Build Job Start Time
         run: echo "$(date +%s)" > build-job-start-time.txt
 
-      - name: Upload Start Time
+      - name: Upload Build Job Start Time
         uses: actions/upload-artifact@v4
         with:
-          name: start-time
-          path: start_time.txt
+          name: build-job-start-time
+          path: build-job-start-time.txt
 
       - name: Sleep 60 Seconds to Trigger Timeout
         run: sleep 60
 
-      - name: Capture End Time
+      - name: Capture Build Job End Time
         if: always()
         run: echo "$(date +%s)" > build-job-end-time.txt
+
+      - name: Upload Build Job End Time
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-job-end-time
+          path: build-job-end-time.txt
 
   report:
     name: Report Job Status
@@ -44,10 +51,16 @@ jobs:
       REPORT_ON_SUCCESS: "false"
 
     steps:
-      - name: Download Start Time
+      - name: Download Build Job Start Time
         uses: actions/download-artifact@v4
         with:
-          name: start-time
+          name: build-job-start-time
+          path: .
+
+      - name: Download Build Job End Time
+        uses: actions/download-artifact@v4
+        with:
+          name: build-job-end-time
           path: .
 
       - name: Calculate Total Execution Time
