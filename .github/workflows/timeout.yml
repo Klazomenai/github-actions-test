@@ -72,3 +72,8 @@ jobs:
           echo "BUILD_JOB_START_TIME: " $BUILD_JOB_START_TIME
           echo "BUILD_JOB_END_TIME: " $BUILD_JOB_END_TIME
           echo "BUILD_JOB_RUNTIME: " $BUILD_JOB_RUNTIME
+
+      - name: Debug API Response
+        run: |
+          curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          "https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}"
