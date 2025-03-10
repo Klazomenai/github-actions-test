@@ -29,6 +29,14 @@ jobs:
       - name: Sleep 60 Seconds to Trigger Timeout
         run: sleep 60
 
+      - name: Check for Timeout in Logs
+        if: canceled()
+        run: |
+          if grep "The job was stopped because it reached the maximum execution time." $GITHUB_WORKFLOW_LOG; then
+            echo "Timeout detected!"
+            exit 124
+          fi
+
       - name: Capture End Time
         if: always()
         run: echo "END_TIME=$(date +%s)" >> $GITHUB_ENV
