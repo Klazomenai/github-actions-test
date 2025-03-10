@@ -30,7 +30,7 @@ jobs:
         run: sleep 60
 
       - name: Detect Timeout via API
-        if: failure()  # Run only if the job failed
+        if: cancelled()  # Run only if the job was cancelled, i.e. timeout is one possability
         run: |
           JOB_INFO=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           "https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}")
