@@ -30,7 +30,7 @@ jobs:
         run: sleep 60
 
       - name: Check for Timeout in Logs
-        if: canceled()
+        if: cancelled()
         run: |
           if grep "The job was stopped because it reached the maximum execution time." $GITHUB_WORKFLOW_LOG; then
             echo "Timeout detected!"
